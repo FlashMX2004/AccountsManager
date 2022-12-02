@@ -3,7 +3,7 @@
     /// <summary>
     /// Record in password block
     /// </summary>
-    public class PasswordBlockRecordViewModel : ViewModelBase
+    public class AccountRecordItemViewModel : ViewModelBase
     {
         /// <summary>
         /// Label of record

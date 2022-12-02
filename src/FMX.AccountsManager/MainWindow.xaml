@@ -10,7 +10,7 @@
         Height="450" MinHeight="50"
         Width="600"
         WindowStyle="None">
-    <Grid DataContext="{x:Static dm:MainDesignModel.Instance}">
+    <Grid d:DataContext="{x:Static dm:MainDesignModel.Instance}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>

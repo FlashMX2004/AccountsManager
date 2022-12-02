@@ -12,6 +12,11 @@ namespace FMX.PasswordManager
         /// <summary>
         /// Password block collection
         /// </summary>
-        public ObservableCollection<PasswordBlockViewModel>? Blocks { get; set; }
+        public ObservableCollection<AccoundRecordViewModel>? Records { get; set; }
+
+        public MainViewModel(IRecordService recordService)
+        {
+
+        }
     }
 }

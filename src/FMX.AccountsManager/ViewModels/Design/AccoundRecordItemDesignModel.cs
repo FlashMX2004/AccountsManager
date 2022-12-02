@@ -1,8 +1,8 @@
 ﻿namespace FMX.PasswordManager.DesignModels
 {
-    public static class PasswordBlockRecordDesignModel
+    public static class AccountRecordItemDesignModel
     {
-        public static PasswordBlockRecordViewModel Instance => new ()
+        public static AccountRecordItemViewModel Instance => new ()
         {
             Label = "Test Label",
             Value = "Test Value"

@@ -5,7 +5,7 @@ namespace FMX.PasswordManager
     /// <summary>
     /// Password block, which is in passwords collection
     /// </summary>
-    public class PasswordBlockViewModel : ViewModelBase
+    public class AccoundRecordViewModel : ViewModelBase
     {
         /// <summary>
         /// Password block label
@@ -15,6 +15,6 @@ namespace FMX.PasswordManager
         /// <summary>
         /// Password records collection
         /// </summary>
-        public ObservableCollection<PasswordBlockRecordViewModel> Records { get; set; } = new();
+        public ObservableCollection<AccountRecordItemViewModel> Records { get; set; } = new();
     }
 }

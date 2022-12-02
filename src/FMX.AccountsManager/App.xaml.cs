@@ -1,17 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Castle.Windsor;
+using Castle.Windsor.Installer;
+using System.Reflection;
 using System.Windows;
 
-namespace FMX.PasswordManager
+namespace FMX.PasswordManager;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Path to data in regitry
     /// </summary>
-    public partial class App : Application
-    {
-    }
+    public const string REGISTRY_PATH = @"SOFTWARE\FMX.AccountManager";
+
+    /// <summary>
+    /// Castle.Windsor DI container
+    /// </summary>
+    private readonly IWindsorContainer windsor;
+
+    /// <summary>
+    /// Default Constructor
+    /// </summary>
+    public App() => windsor = new WindsorContainer();
+    
+    /// <summary>
+    /// Custom startup
+    /// </summary>
+    /// <param name="e"></param>
+    protected override void OnStartup(StartupEventArgs e) =>
+        windsor.Install(FromAssembly.Instance(Assembly.GetExecutingAssembly()))
+               .Resolve<MainWindow>()
+               .Show();
 }

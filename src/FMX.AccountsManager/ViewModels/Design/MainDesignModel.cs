@@ -2,14 +2,14 @@
 {
     public class MainDesignModel
     {
-        public static MainViewModel Instance => new()
+        public static MainViewModel Instance => new(null)
         {
             SearchFilter = "Search  Filter",
-            Blocks = new()
+            Records = new()
             {
-                PasswordBlockDesignModel.Instance,
-                PasswordBlockDesignModel.Instance,
-                PasswordBlockDesignModel.Instance,
+                AccounrRecordDesignModel.Instance,
+                AccounrRecordDesignModel.Instance,
+                AccounrRecordDesignModel.Instance,
             },
         };
     }
