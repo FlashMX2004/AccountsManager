@@ -2,7 +2,7 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace FMX.PasswordManager.DIInstallers
+namespace FMX.AccountsManager.DIInstallers
 {
     public class ViewModelsInstaller : IWindsorInstaller
     {

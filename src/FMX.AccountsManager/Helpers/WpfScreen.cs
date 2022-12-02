@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Linq;
 
-namespace FMX.PasswordManager
+namespace FMX.AccountsManager
 {
     /// <summary>
     /// WPF wrapper for winforms screen

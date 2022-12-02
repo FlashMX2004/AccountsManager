@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FMX.PasswordManager
+namespace FMX.AccountsManager
 {
     /// <summary>
-    /// Interaction logic for PasswordBlockView.xaml
+    /// Interaction logic for AccountRecordFieldView.xaml
     /// </summary>
-    public partial class PasswordBlockView : UserControl
+    public partial class AccountRecordFieldView : UserControl
     {
-        public PasswordBlockView()
+        public AccountRecordFieldView()
         {
             InitializeComponent();
         }

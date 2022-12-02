@@ -1,4 +1,4 @@
-﻿namespace FMX.PasswordManager.DesignModels
+﻿namespace FMX.AccountsManager.DesignModels
 {
     public class MainDesignModel
     {
@@ -7,9 +7,9 @@
             SearchFilter = "Search  Filter",
             Records = new()
             {
-                AccounrRecordDesignModel.Instance,
-                AccounrRecordDesignModel.Instance,
-                AccounrRecordDesignModel.Instance,
+                AccountRecordDesignModel.Instance,
+                AccountRecordDesignModel.Instance,
+                AccountRecordDesignModel.Instance,
             },
         };
     }

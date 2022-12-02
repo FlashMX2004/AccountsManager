@@ -1,9 +1,9 @@
-﻿namespace FMX.PasswordManager
+﻿namespace FMX.AccountsManager
 {
     /// <summary>
-    /// Record in password block
+    /// Record (item) of account record
     /// </summary>
-    public class AccountRecordItemViewModel : ViewModelBase
+    public class AccountRecordFieldViewModel : ViewModelBase
     {
         /// <summary>
         /// Label of record

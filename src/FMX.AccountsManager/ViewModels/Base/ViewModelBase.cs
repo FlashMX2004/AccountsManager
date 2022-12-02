@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace FMX.PasswordManager
+namespace FMX.AccountsManager
 {
     /// <summary>
     /// A base view model that fires Property Changed events as needed

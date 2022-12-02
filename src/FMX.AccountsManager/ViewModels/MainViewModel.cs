@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace FMX.PasswordManager
+namespace FMX.AccountsManager
 {
     public class MainViewModel : ViewModelBase
     {
@@ -10,9 +10,9 @@ namespace FMX.PasswordManager
         public string SearchFilter { get; set; } = "";
 
         /// <summary>
-        /// Password block collection
+        /// Account records collection
         /// </summary>
-        public ObservableCollection<AccoundRecordViewModel>? Records { get; set; }
+        public ObservableCollection<AccountRecordViewModel>? Records { get; set; }
 
         public MainViewModel(IRecordService recordService)
         {

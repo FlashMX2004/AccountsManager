@@ -3,18 +3,13 @@ using Castle.Windsor.Installer;
 using System.Reflection;
 using System.Windows;
 
-namespace FMX.PasswordManager;
+namespace FMX.AccountsManager;
 
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
 {
-    /// <summary>
-    /// Path to data in regitry
-    /// </summary>
-    public const string REGISTRY_PATH = @"SOFTWARE\FMX.AccountManager";
-
     /// <summary>
     /// Castle.Windsor DI container
     /// </summary>
@@ -33,4 +28,11 @@ public partial class App : Application
         windsor.Install(FromAssembly.Instance(Assembly.GetExecutingAssembly()))
                .Resolve<MainWindow>()
                .Show();
+
+    /// <summary>
+    /// Returns service of type <typeparamref name="T"/>
+    /// </summary>
+    /// <typeparam name="T">Type of service</typeparam>
+    /// <returns>Service of type <typeparamref name="T"/></returns>
+    public static T GetService<T>() => (Current as App)!.windsor.Resolve<T>();
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FMX.PasswordManager
+namespace FMX.AccountsManager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,6 +30,31 @@ namespace FMX.PasswordManager
 
             SetWindowPosition();
             UpdatePasswordBlocks("");
+
+            /*List<AccountRecordViewModel> records = new()
+            {
+                new AccountRecordViewModel
+                {
+                    Label = "Account1",
+                    Fields = new()
+                    {
+                        new AccountRecordFieldViewModel { Label = "Username", Value = "Username1" },
+                        new AccountRecordFieldViewModel { Label = "Email", Value = "Email1" },
+                        new AccountRecordFieldViewModel { Label = "Password", Value = "Password1" },
+                    }
+                },
+                new AccountRecordViewModel
+                {
+                    Label = "Account2",
+                    Fields = new()
+                    {
+                        new AccountRecordFieldViewModel { Label = "Email", Value = "Email2" },
+                        new AccountRecordFieldViewModel { Label = "Password", Value = "Password2" },
+                    }
+                }
+            };
+
+            App.GetService<IRecordService>().UpdateAllRecords(records);*/
         }
 
         private void UpdatePasswordBlocks(string searchFilter)
