@@ -1,10 +1,10 @@
-﻿namespace FMX.AccountsManager.DesignModels
+﻿namespace FMX.AccountsManager.Design
 {
     public class MainDesignModel
     {
-        public static MainViewModel Instance => new(null)
+        public static MainViewModel Instance => new(new RecordDesignService(), new DialogDesignService())
         {
-            SearchFilter = "Search  Filter",
+            SearchFilter = "Dsign Search Filter Text",
             Records = new()
             {
                 AccountRecordDesignModel.Instance,

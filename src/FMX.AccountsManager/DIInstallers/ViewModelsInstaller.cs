@@ -9,6 +9,7 @@ namespace FMX.AccountsManager.DIInstallers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<MainViewModel>().LifestyleSingleton());
+            container.Register(Component.For<AddAccountRecordViewModel>().LifestyleTransient());
         }
     }
 }

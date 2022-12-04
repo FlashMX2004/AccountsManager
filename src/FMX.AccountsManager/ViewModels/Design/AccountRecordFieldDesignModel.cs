@@ -1,11 +1,11 @@
-﻿namespace FMX.AccountsManager.DesignModels
+﻿namespace FMX.AccountsManager.Design
 {
     public static class AccountRecordFieldDesignModel
     {
         public static AccountRecordFieldViewModel Instance => new ()
         {
-            Label = "Test Label",
-            Value = "Test Value"
+            Label = "Design Field Label",
+            Value = "Design Field Value"
         };
     }
 }
