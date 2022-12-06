@@ -9,13 +9,18 @@
                   d:DataContext="{x:Static dm:MainDesignModel.Instance}"
                   mc:Ignorable="d"
                   Title="Accounts Manager"
-                  Height="450" MinHeight="50"
-                  Width="600"  MinWidth="50"
-                  WindowStyle="None">
+                  Height="450"
+                  Width="600"
+                  Style="{StaticResource WindowStyle}">
     
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding CloseCommand}"/>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddAccountRecordCommand}"/>
     </Window.InputBindings>
+
+    <Window.Triggers>
+        
+    </Window.Triggers>
     
     <Grid>
 
@@ -37,6 +42,8 @@
                      VerticalAlignment="Center"
                      HorizontalAlignment="Stretch"
                      />
+            
+            
         </Grid>
 
         <Grid Grid.Row="1">

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Windows;
+using System.Threading.Tasks;
 
 namespace FMX.AccountsManager
 {
@@ -7,7 +7,7 @@ namespace FMX.AccountsManager
     /// Base class for all windows in WPF app
     /// </summary>
     /// <typeparam name="VM">View model type</typeparam>
-    public class WindowBase<VM> : Window, IDisposable
+    public class WindowBase<VM> : RoutedWindow, IDisposable
         where VM : ViewModelBase, IRequestClose
     {
         /// <summary>
@@ -49,7 +49,11 @@ namespace FMX.AccountsManager
         /// </summary>
         protected virtual void OnCloseRequested(object? sender, RequestCloseEventArgs e)
         {
-            Close();
+            // Unable this window while closing
+            IsEnabled = false;
+
+            // Start closing
+            Task.Run(base.CloseAsync);
         }
 
         /// <summary>
@@ -59,8 +63,7 @@ namespace FMX.AccountsManager
         {
             var screen = WpfScreen.GetScreenFrom(this);
 
-            // TODO: I don't know why i need to add these 8px for correct view...
-            Top = screen.WorkingArea.Bottom - Height + 8;
+            Top = screen.WorkingArea.Bottom - Height;
             Left = screen.WorkingArea.Right / 2 - Width / 2;
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace FMX.AccountsManager.ViewModels.Base
+namespace FMX.AccountsManager
 {
     /// <summary>
     /// Base view model for all dialogs

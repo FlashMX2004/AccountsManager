@@ -1,5 +1,4 @@
-﻿using FMX.AccountsManager.ViewModels.Base;
-using System;
+﻿using System;
 using System.Windows.Input;
 
 namespace FMX.AccountsManager

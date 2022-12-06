@@ -1,18 +1,20 @@
 ﻿<local:DialogWindowBase x:Class="FMX.AccountsManager.AddAccountRecordDialog"
-                  x:TypeArguments="local:AddAccountRecordViewModel"
-                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                  xmlns:dm="clr-namespace:FMX.AccountsManager.Design" 
-                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                  xmlns:local="clr-namespace:FMX.AccountsManager"
-                  mc:Ignorable="d"
-                  Title="Add Account Record"
-                  Height="150" MinHeight="50"
-                  Width="600"  MinWidth="50"
-                  WindowStyle="None">
+                        x:TypeArguments="local:AddAccountRecordViewModel"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:dm="clr-namespace:FMX.AccountsManager.Design" 
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:FMX.AccountsManager"
+                        mc:Ignorable="d"
+                        Title="Add Account Record"
+                        Width="600"
+                        Height="400"
+                        Style="{StaticResource WindowStyle}">
+
     <Grid d:DataContext="{x:Static dm:AddAccountRecordDesignModel.Instance}">
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
@@ -33,6 +35,7 @@
                        Grid.Column="1"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
+                       Margin="0 30"
                        Text="New Account Record Label"
                        FontSize="{StaticResource FontSizeRegular}"
                        />
@@ -40,12 +43,15 @@
             <TextBox Grid.Row="1"
                      Grid.Column="1"
                      VerticalAlignment="Center"
+                     Margin="0 10"
                      x:Name="NewLabelText"
                      Text="{Binding NewAccountRecordLabel}"
                      />
         </Grid>
 
-        <Grid Grid.Row="1">
+        
+        
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
