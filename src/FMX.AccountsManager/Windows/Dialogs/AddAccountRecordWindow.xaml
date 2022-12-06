@@ -8,7 +8,7 @@
                         xmlns:local="clr-namespace:FMX.AccountsManager"
                         mc:Ignorable="d"
                         Title="Add Account Record"
-                        Width="600"
+                        Width="{StaticResource WindowsWidth}"
                         Height="400"
                         Style="{StaticResource WindowStyle}">
 
@@ -18,7 +18,7 @@
             <RowDefinition/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -45,12 +45,22 @@
                      VerticalAlignment="Center"
                      Margin="0 10"
                      x:Name="NewLabelText"
-                     Text="{Binding NewAccountRecordLabel}"
+                     Text="{Binding AccountRecord.Label}"
                      />
         </Grid>
 
-        
-        
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl Focusable="False"
+                          ItemsSource="{Binding AccountRecord.Fields}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:AddAccountRecordFieldView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

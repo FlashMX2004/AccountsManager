@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:FMX.AccountsManager">
+                    xmlns:local="clr-namespace:FMX.AccountsManager"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <!-- Buttons for amin window -->
     <ControlTemplate x:Key="MainWindowButtons" TargetType="ContentControl">
@@ -125,7 +126,15 @@
 
                     <!-- Main border -->
                     <Border x:Name="WindowBorder">
-                        <Grid Background="White">
+                        <Grid Background="White" Focusable="True">
+
+                            <!-- Unfocus current focused element when click grid -->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:RoutedWindow}}"
+                                                        MethodName="FocusGrid"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
 
                             <!-- Window buttons -->
                             <ContentControl x:Name="WindowButtons"

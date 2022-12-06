@@ -2,12 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:FMX.AccountsManager">
 
+    <Style TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+    </Style>
+    
     <Style TargetType="TextBox">
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
     </Style>
 
-    <Style x:Key="ucstyle" TargetType="UserControl">
-        <Setter Property="Background" Value="RoyalBlue"/>
-    </Style>
-    
 </ResourceDictionary>

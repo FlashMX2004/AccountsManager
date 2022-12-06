@@ -11,6 +11,11 @@ namespace FMX.AccountsManager
         where VM : ViewModelBase, IRequestClose
     {
         /// <summary>
+        /// Fires when <see cref="ViewModel"/> is not null (is set)
+        /// </summary>
+        protected event Action<VM> ViewModelSet = vm => { };
+
+        /// <summary>
         /// Default Constructor
         /// </summary>
         public WindowBase()
@@ -41,6 +46,9 @@ namespace FMX.AccountsManager
 
                 // Subscribe on close request of view model
                 value.CloseRequested += OnCloseRequested;
+
+                // Fire event for not null view model
+                ViewModelSet(value);
             }
         }
 

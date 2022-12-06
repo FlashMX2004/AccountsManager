@@ -98,13 +98,13 @@ namespace FMX.AccountsManager
                 using RegistryKey recordKey = mainKey.OpenSubKey(record.Label)!;
 
                 // Fill record fields collection by values in registry key
-                var fields = recordKey.GetValueNames();
+                var fields = recordKey.GetValueNames()!;
                 for (int j = 0; j < recordKey.ValueCount; j++)
                 {
                     record.Fields.Add(new() 
                     {
-                        Label = fields[i], 
-                        Value = recordKey.GetValue(fields[i])!.ToString() 
+                        Label = fields[j], 
+                        Value = recordKey.GetValue(fields[j]).ToString() 
                     });
                 }
 

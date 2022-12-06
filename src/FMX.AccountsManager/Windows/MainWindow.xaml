@@ -10,7 +10,7 @@
                   mc:Ignorable="d"
                   Title="Accounts Manager"
                   Height="450"
-                  Width="600"
+                  Width="{StaticResource WindowsWidth}"
                   Style="{StaticResource WindowStyle}">
     
     <Window.InputBindings>

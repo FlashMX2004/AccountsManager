@@ -37,15 +37,21 @@ namespace FMX.AccountsManager
                 var dialog = dialogService.Get<AddAccountRecordViewModel>();
                 // dialog.ViewModel.CloseRequested += () => { /*Something*/ };
                 dialog.ShowDialog();
+                var newRecord = dialog.ViewModel.AccountRecord;
 
-                if (!string.IsNullOrEmpty(dialog.ViewModel.NewAccountRecordLabel) &&
+                // TODO: Update IRecordService
+                // TODO: Make validation logic in AddAccountRecordView
+
+                if (!string.IsNullOrEmpty(newRecord.Label) &&
                     (dialog.DialogResult ?? false))
                 {
-                    recordService.AddRecord(dialog.ViewModel.NewAccountRecordLabel);
-                    Records.Add(new AccountRecordViewModel 
-                    {  
-                        Label = dialog.ViewModel.NewAccountRecordLabel 
-                    });
+                    recordService.AddRecord(newRecord.Label);
+                    foreach (var field in newRecord.Fields)
+                    {
+                        recordService.AddRecordField(newRecord.Label, field.Label);
+                        recordService.UpdateRecordFieldValue(newRecord.Label, field.Label, field.Value);
+                    }
+                    Records.Add(newRecord);
                 }
             });
 

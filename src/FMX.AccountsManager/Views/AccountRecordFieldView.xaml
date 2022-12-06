@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dm="clr-namespace:FMX.AccountsManager.Design" 
              xmlns:local="clr-namespace:FMX.AccountsManager"
-             mc:Ignorable="d" 
-             d:DesignHeight="20" d:DesignWidth="500">
-    <Grid d:DataContext="{x:Static dm:AccountRecordFieldDesignModel.Instance}">
+             mc:Ignorable="d" d:DesignWidth="{StaticResource WindowsWidth}">
+    <Grid d:DataContext="{x:Static dm:AccountRecordFieldDesignModel.Instance}"
+          d:Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>

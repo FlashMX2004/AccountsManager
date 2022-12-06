@@ -6,14 +6,14 @@ namespace FMX.AccountsManager
     /// <summary>
     /// A basic command that runs an Action
     /// </summary>
-    public class RelayCommand : ICommand
+    public class RelayParameterizedCommand : ICommand
     {
         #region Private Members
 
         /// <summary>
         /// The action to run
         /// </summary>
-        private readonly Action _action;
+        private Action<object?> _action;
 
         #endregion
 
@@ -31,8 +31,8 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RelayCommand(Action action) => _action = action;
-
+        public RelayParameterizedCommand(Action<object?> action) => _action = action;
+        
         #endregion
 
         #region Command Methods
@@ -48,7 +48,7 @@ namespace FMX.AccountsManager
         /// Executes the commands Action
         /// </summary>
         /// <param name="parameter"></param>
-        public void Execute(object? parameter) => _action();
+        public void Execute(object? parameter) => _action(parameter);
 
         #endregion
     }

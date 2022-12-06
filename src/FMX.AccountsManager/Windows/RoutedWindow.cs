@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace FMX.AccountsManager
 {
@@ -49,6 +47,11 @@ namespace FMX.AccountsManager
             Dispatcher.Invoke(() => RaiseEvent(new RoutedEventArgs(RoutedClosingEvent)));
             await Task.Delay(CLOSING_DURATION);
             Dispatcher.Invoke(() => Close());
+        }
+
+        public void FocusGrid(object? sender, MouseButtonEventArgs args)
+        {
+            ((Grid)sender!).Focus();
         }
     }
 }

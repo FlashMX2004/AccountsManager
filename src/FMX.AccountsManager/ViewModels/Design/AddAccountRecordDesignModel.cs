@@ -4,7 +4,7 @@
     {
         public static AddAccountRecordViewModel Instance => new()
         {
-            NewAccountRecordLabel= "Here user will write new label...",
+            AccountRecord = AccountRecordDesignModel.Instance
         };
     }
 }
