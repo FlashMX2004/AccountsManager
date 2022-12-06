@@ -3,11 +3,11 @@
 namespace FMX.AccountsManager
 {
     /// <summary>
-    /// Interaction logic for PasswordBlockView.xaml
+    /// Interaction logic for AccountRecordView.xaml
     /// </summary>
-    public partial class PasswordBlockView : UserControl
+    public partial class AccountRecordView : UserControl
     {
-        public PasswordBlockView()
+        public AccountRecordView()
         {
             InitializeComponent();
         }

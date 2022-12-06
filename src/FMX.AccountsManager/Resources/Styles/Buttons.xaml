@@ -40,5 +40,45 @@
             </EventTrigger>
         </Style.Triggers>
     </Style>
-    
+
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="#0fff"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                            BorderThickness="1"
+                            BorderBrush="Black">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="#fccc"
+                                        Duration="{StaticResource ButtonAnimationDuration}"
+                                        Storyboard.TargetProperty="Background.Color"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="#0fff"
+                                        Duration="{StaticResource ButtonAnimationDuration}"
+                                        Storyboard.TargetProperty="Background.Color"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FMX.AccountsManager.PasswordBlockView"
+﻿<UserControl x:Class="FMX.AccountsManager.AccountRecordView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,6 +6,7 @@
              xmlns:dm="clr-namespace:FMX.AccountsManager.Design" 
              xmlns:local="clr-namespace:FMX.AccountsManager"
              mc:Ignorable="d"
+             d:Background="White"
              d:DesignHeight="400"
              d:DesignWidth="500">
     
@@ -23,12 +24,19 @@
                    HorizontalAlignment="Center"
                    />
 
+        <Button Content="-"
+                Command="{Binding RemoveCommand}"
+                HorizontalAlignment="Right"
+                Width="50"
+                Height="30"
+                />
+
         <ItemsControl Grid.Row="1"
                       ItemsSource="{Binding Fields}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     
-                    <local:AccountRecordFieldView/>
+                    <local:AccountRecordFieldView Margin="0 0 0 5"/>
                     
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

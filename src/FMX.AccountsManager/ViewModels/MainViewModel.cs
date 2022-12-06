@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows.Input;
 
 namespace FMX.AccountsManager
@@ -7,8 +10,15 @@ namespace FMX.AccountsManager
     /// <summary>
     /// View model for main application view
     /// </summary>
-    public class MainViewModel : ViewModelBase, IRequestClose
+    public class MainViewModel : ViewModelBase, IRequestClose, IDisposable
     {
+        #region Privates
+
+        private readonly IRecordService _recordService;
+        private readonly IDialogService _dialogService;
+
+        #endregion
+
         #region Publix
 
         /// <summary>
@@ -19,7 +29,7 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Account records collection
         /// </summary>
-        public ObservableCollection<AccountRecordViewModel> Records { get; set; }
+        public ObservableCollection<AccountRecordViewModel> Records { get; set; } = new();
 
         #endregion
 
@@ -46,7 +56,12 @@ namespace FMX.AccountsManager
         /// <param name="dialogService">Service for managing dialogs</param>
         public MainViewModel(IRecordService recordService, IDialogService dialogService)
         {
-            Records = new(recordService.GetAllRecords());
+            _recordService = recordService;
+            _dialogService = dialogService;
+
+            foreach (var rec in recordService.GetAllRecords())
+                AddRecord(rec);
+
             AddAccountRecordCommand = new RelayCommand(() =>
             {
                 var dialog = dialogService.Get<AddAccountRecordViewModel>();
@@ -66,16 +81,57 @@ namespace FMX.AccountsManager
                         recordService.AddRecordField(newRecord.Label, field.Label);
                         recordService.UpdateRecordFieldValue(newRecord.Label, field.Label, field.Value);
                     }
-                    Records.Add(newRecord);
+
+                    AddRecord(newRecord);
                 }
             });
 
             CloseCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(true)));
         }
 
+        private void NewRecord_Removed(object? sender, RemovedEventArgs e)
+        {
+            if (sender is AccountRecordViewModel vm)
+            {
+                _recordService.DeleteRecord(vm.Label);
+                RemoveRecord(vm);
+            }
+        }
+
         #endregion
 
-        #region IRequestClose Implementation
+        #region Helpers
+
+        private void AddRecord(AccountRecordViewModel record)
+        {
+            Records.Add(record);
+            record.Removed += NewRecord_Removed;
+        }
+
+        private void RemoveRecord(AccountRecordViewModel record)
+        {
+            Records.Remove(record);
+            record.Removed -= NewRecord_Removed;
+        }
+
+        #endregion
+
+        #region IDisposable Members
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            foreach (var r in Records)
+            {
+                r.Removed -= NewRecord_Removed;
+            }
+        }
+
+        #endregion
+
+        #region IRequestClose Members
 
         /// <summary>
         /// Fires when some view requests for close it

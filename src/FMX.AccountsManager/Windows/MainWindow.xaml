@@ -64,10 +64,9 @@
                 <ItemsControl ItemsSource="{Binding Records}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <local:PasswordBlockView/>
+                            <local:AccountRecordView/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-
                 </ItemsControl>
             </ScrollViewer>
 
