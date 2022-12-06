@@ -4,6 +4,9 @@ using Castle.Windsor;
 
 namespace FMX.AccountsManager.DIInstallers
 {
+    /// <summary>
+    /// View models installation to DI container
+    /// </summary>
     public class ViewModelsInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)

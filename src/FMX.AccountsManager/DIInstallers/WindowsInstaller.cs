@@ -4,6 +4,9 @@ using Castle.Windsor;
 
 namespace FMX.AccountsManager.DIInstallers
 {
+    /// <summary>
+    /// Windows installation to DI container
+    /// </summary>
     public class WindowsInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
@@ -23,11 +26,11 @@ namespace FMX.AccountsManager.DIInstallers
                                         .LifestyleTransient());
 
             //
-            // Dialogs Registring.
+            // Dialog factories registring.
             //
-            DialogService.OnDialogsRegister += service =>
+            DialogService.OnDialogFactoriesRegistring += service =>
             {
-                service.RegisterFactory(container.Resolve<AddAccountRecordDialog>);
+                service.RegisterDialogFactory(container.Resolve<AddAccountRecordDialog>);
             };
         }
     }

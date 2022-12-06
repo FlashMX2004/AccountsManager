@@ -3,7 +3,7 @@
 namespace FMX.AccountsManager
 {
     /// <summary>
-    /// A base view model that fires Property Changed events as needed
+    /// A base view model that fires Property Changed events when it's neccessary
     /// </summary>
     public class ViewModelBase : INotifyPropertyChanged
     {

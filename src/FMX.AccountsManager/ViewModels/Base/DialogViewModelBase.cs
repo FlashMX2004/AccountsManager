@@ -9,11 +9,6 @@ namespace FMX.AccountsManager
     public class DialogViewModelBase : ViewModelBase, IRequestClose
     {
         /// <summary>
-        /// Fires when some view requests for close it
-        /// </summary>
-        public event EventHandler<RequestCloseEventArgs> CloseRequested = (_, _) => { };
-
-        /// <summary>
         /// Dialog "OK" command, executes when user agree with dialog
         /// </summary>
         public ICommand OkCommand { get; set; }
@@ -35,6 +30,15 @@ namespace FMX.AccountsManager
             NoCommand     = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(false)));
             CancelCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(null)));
         }
+
+        #region IRequestClose Implementation
+
+        /// <summary>
+        /// Fires when some view requests for close it
+        /// </summary>
+        public event EventHandler<RequestCloseEventArgs> CloseRequested = (_, _) => { };
+
+        #endregion
 
     }
 }

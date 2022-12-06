@@ -16,6 +16,8 @@ namespace FMX.AccountsManager
         /// </summary>
         public const int CLOSING_DURATION = 500;
 
+        #region Routed Events Registration
+
         /// <summary>
         /// Routed event fired when window starts to close
         /// </summary>
@@ -39,16 +41,26 @@ namespace FMX.AccountsManager
             remove => base.AddHandler(RoutedClosingEvent, value);
         }
 
+        #endregion
+
         /// <summary>
-        /// Close window asynchronously for <see cref="CLOSING_DURATION"/> duration
+        /// Closes window asynchronously for <see cref="CLOSING_DURATION"/> duration
         /// </summary>
         public async Task CloseAsync()
         {
+            // Raise closing event for animations
             Dispatcher.Invoke(() => RaiseEvent(new RoutedEventArgs(RoutedClosingEvent)));
+
+            // Wait for animation
             await Task.Delay(CLOSING_DURATION);
+
+            // Close window
             Dispatcher.Invoke(() => Close());
         }
 
+        /// <summary>
+        /// Focuses grid for unfocus other focused element :D
+        /// </summary>
         public void FocusGrid(object? sender, MouseButtonEventArgs args)
         {
             ((Grid)sender!).Focus();

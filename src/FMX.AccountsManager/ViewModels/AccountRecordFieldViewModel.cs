@@ -6,6 +6,7 @@
     public class AccountRecordFieldViewModel : ViewModelBase
     {
         private string _label = "";
+
         /// <summary>
         /// Label of record
         /// </summary>

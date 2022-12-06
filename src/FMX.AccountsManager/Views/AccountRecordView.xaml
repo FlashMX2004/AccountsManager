@@ -5,9 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dm="clr-namespace:FMX.AccountsManager.Design" 
              xmlns:local="clr-namespace:FMX.AccountsManager"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="500">
+             mc:Ignorable="d"
+             d:DesignHeight="400"
+             d:DesignWidth="500">
+    
     <Grid d:DataContext="{x:Static dm:AccountRecordDesignModel.Instance}">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
@@ -20,12 +23,13 @@
                    HorizontalAlignment="Center"
                    />
 
-        <ItemsControl ItemsSource="{Binding Fields}"
-                      Grid.Row="1"
-                      >
+        <ItemsControl Grid.Row="1"
+                      ItemsSource="{Binding Fields}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    
                     <local:AccountRecordFieldView/>
+                    
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

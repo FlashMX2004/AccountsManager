@@ -5,6 +5,9 @@ using Castle.Windsor;
 
 namespace FMX.AccountsManager.DIInstallers
 {
+    /// <summary>
+    /// Services installation to DI container
+    /// </summary>
     public class ServicesInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)

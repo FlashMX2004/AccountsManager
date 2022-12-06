@@ -4,8 +4,13 @@ using System.Windows.Input;
 
 namespace FMX.AccountsManager
 {
+    /// <summary>
+    /// View model for main application view
+    /// </summary>
     public class MainViewModel : ViewModelBase, IRequestClose
     {
+        #region Publix
+
         /// <summary>
         /// Search filter value
         /// </summary>
@@ -15,6 +20,10 @@ namespace FMX.AccountsManager
         /// Account records collection
         /// </summary>
         public ObservableCollection<AccountRecordViewModel> Records { get; set; }
+
+        #endregion
+
+        #region Commands
 
         /// <summary>
         /// Adds account record when executed
@@ -26,9 +35,15 @@ namespace FMX.AccountsManager
         /// </summary>
         public ICommand CloseCommand { get; set; }
 
+        #endregion
 
-        public event EventHandler<RequestCloseEventArgs> CloseRequested = (_, _) => { };
+        #region Constructor
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="recordService">Service for managing records</param>
+        /// <param name="dialogService">Service for managing dialogs</param>
         public MainViewModel(IRecordService recordService, IDialogService dialogService)
         {
             Records = new(recordService.GetAllRecords());
@@ -58,5 +73,15 @@ namespace FMX.AccountsManager
             CloseCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(true)));
         }
 
+        #endregion
+
+        #region IRequestClose Implementation
+
+        /// <summary>
+        /// Fires when some view requests for close it
+        /// </summary>
+        public event EventHandler<RequestCloseEventArgs> CloseRequested = (_, _) => { };
+
+        #endregion
     }
 }

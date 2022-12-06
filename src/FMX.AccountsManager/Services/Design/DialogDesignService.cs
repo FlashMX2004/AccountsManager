@@ -8,7 +8,7 @@ namespace FMX.AccountsManager
 {
     public class DialogDesignService : IDialogService
     {
-        public IDialog<VM> Get<VM>() where VM : ViewModelBase, IRequestClose
+        public IDialog<VM> Get<VM>() where VM : DialogViewModelBase, IRequestClose
         {
             return null;
         }
