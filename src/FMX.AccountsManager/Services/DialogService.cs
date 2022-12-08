@@ -37,10 +37,9 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DialogService()
-        {
+        public DialogService() =>
             // Start registring (mapping) factories
             OnDialogFactoriesRegistring?.Invoke(this);
-        }
+        
     }
 }

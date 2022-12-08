@@ -1,4 +1,4 @@
-﻿namespace FMX.AccountsManager
+﻿namespace FMX.AccountsManager.Core
 {
     /// <summary>
     /// Cantract for all dialogs for users

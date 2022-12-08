@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace FMX.AccountsManager
+namespace FMX.AccountsManager.Core
 {
     /// <summary>
     /// View model for add account record dialog
@@ -10,7 +10,7 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Record that will be added
         /// </summary>
-        public AccountRecordViewModel AccountRecord { get; set; } = new AccountRecordViewModel();
+        public AccountRecordViewModel AccountRecord { get; set; }
 
         #region Commands
 
@@ -31,8 +31,10 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public AddAccountRecordViewModel()
+        public AddAccountRecordViewModel(AccountRecordViewModel recordViewModel)
         {
+            AccountRecord = recordViewModel;
+
             AddFieldCommand = new RelayParameterizedCommand(o =>
             {
                 if (o is AccountRecordFieldViewModel vm) AccountRecord.Fields.Add(vm);

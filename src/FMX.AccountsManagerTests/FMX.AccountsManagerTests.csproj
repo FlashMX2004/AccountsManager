@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FMX.AccountsManager.Core\FMX.AccountsManager.Core.csproj" />
     <ProjectReference Include="..\FMX.AccountsManager\FMX.AccountsManager.csproj" />
   </ItemGroup>
 

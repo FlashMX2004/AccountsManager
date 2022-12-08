@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace FMX.AccountsManager
+namespace FMX.AccountsManager.Core
 {
     /// <summary>
     /// Object that can be removed

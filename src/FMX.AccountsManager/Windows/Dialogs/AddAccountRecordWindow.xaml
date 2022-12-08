@@ -1,16 +1,18 @@
-﻿<local:DialogWindowBase x:Class="FMX.AccountsManager.AddAccountRecordDialog"
-                        x:TypeArguments="local:AddAccountRecordViewModel"
-                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                        xmlns:dm="clr-namespace:FMX.AccountsManager.Design" 
-                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                        xmlns:local="clr-namespace:FMX.AccountsManager"
-                        mc:Ignorable="d"
-                        Title="Add Account Record"
-                        Width="{StaticResource WindowsWidth}"
-                        Height="400"
-                        Style="{StaticResource WindowStyle}">
+﻿<local:DialogWindowBase 
+    x:Class="FMX.AccountsManager.AddAccountRecordDialog"
+    x:TypeArguments="core:AddAccountRecordViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dm="clr-namespace:FMX.AccountsManager.Core.Design;assembly=FMX.AccountsManager.Core" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:core="clr-namespace:FMX.AccountsManager.Core;assembly=FMX.AccountsManager.Core"
+    xmlns:local="clr-namespace:FMX.AccountsManager"
+    mc:Ignorable="d"
+    Title="Add Account Record"
+    Width="{StaticResource WindowsWidth}"
+    Height="400"
+    Style="{StaticResource WindowStyle}">
 
     <Grid d:DataContext="{x:Static dm:AddAccountRecordDesignModel.Instance}">
         <Grid.RowDefinitions>

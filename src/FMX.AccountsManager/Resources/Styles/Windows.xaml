@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:core="clr-namespace:FMX.AccountsManager.Core;assembly=FMX.AccountsManager.Core"
                     xmlns:local="clr-namespace:FMX.AccountsManager"
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
-    <!-- Buttons for amin window -->
+    <!-- Buttons for main window -->
     <ControlTemplate x:Key="MainWindowButtons" TargetType="ContentControl">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -115,11 +116,11 @@
 
                     <!-- Update buttons by window type -->
                     <ControlTemplate.Resources>
-                        <DataTemplate DataType="{x:Type local:MainViewModel}">
+                        <DataTemplate DataType="{x:Type core:MainViewModel}">
                             <ContentControl Template="{StaticResource MainWindowButtons}"/>
                         </DataTemplate>
 
-                        <DataTemplate DataType="{x:Type local:DialogViewModelBase}">
+                        <DataTemplate DataType="{x:Type core:DialogViewModelBase}">
                             <ContentControl Template="{StaticResource DialogWindowButtons}"/>
                         </DataTemplate>
                     </ControlTemplate.Resources>
@@ -153,5 +154,10 @@
         </Setter>
         
     </Style>
+    
+    <!-- User's choice buttons for dialog -->
+    <DataTemplate x:Key="DialogOK">
+        
+    </DataTemplate>
     
 </ResourceDictionary>

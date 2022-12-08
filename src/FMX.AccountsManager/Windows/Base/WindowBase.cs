@@ -61,7 +61,7 @@ namespace FMX.AccountsManager
             IsEnabled = false;
 
             // Start closing
-            Task.Run(base.CloseAsync);
+           Task.Run(base.CloseAsync);
         }
 
         /// <summary>

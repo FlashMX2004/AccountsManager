@@ -5,8 +5,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Globals.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="Resources/Globals.xaml"/>
+                <ResourceDictionary Source="Resources/Fonts.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Texts.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/Windows.xaml"/>

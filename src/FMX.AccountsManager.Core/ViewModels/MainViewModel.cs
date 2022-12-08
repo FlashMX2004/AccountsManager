@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Windows.Input;
 
-namespace FMX.AccountsManager
+namespace FMX.AccountsManager.Core
 {
     /// <summary>
     /// View model for main application view
@@ -45,6 +43,8 @@ namespace FMX.AccountsManager
         /// </summary>
         public ICommand CloseCommand { get; set; }
 
+        public ICommand FilterCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -59,31 +59,58 @@ namespace FMX.AccountsManager
             _recordService = recordService;
             _dialogService = dialogService;
 
-            foreach (var rec in recordService.GetAllRecords())
+            foreach (var rec in _recordService.GetAllRecords())
                 AddRecord(rec);
 
             AddAccountRecordCommand = new RelayCommand(() =>
             {
-                var dialog = dialogService.Get<AddAccountRecordViewModel>();
-                // dialog.ViewModel.CloseRequested += () => { /*Something*/ };
-                dialog.ShowDialog();
-                var newRecord = dialog.ViewModel.AccountRecord;
+                var dialog = _dialogService.Get<AddAccountRecordViewModel>();
 
-                // TODO: Update IRecordService
-                // TODO: Make validation logic in AddAccountRecordView
-
-                if (!string.IsNullOrEmpty(newRecord.Label) &&
-                    (dialog.DialogResult ?? false))
+                /*
+                
+                void AddAccountRecordViewModel_CloseRequested(object? _, RequestCloseEventArgs e)
                 {
-                    recordService.AddRecord(newRecord.Label);
-                    foreach (var field in newRecord.Fields)
-                    {
-                        recordService.AddRecordField(newRecord.Label, field.Label);
-                        recordService.UpdateRecordFieldValue(newRecord.Label, field.Label, field.Value);
-                    }
+                    dialog.ViewModel.CloseRequested -= AddAccountRecordViewModel_CloseRequested;
+                    var newRecord = dialog.ViewModel.AccountRecord;
 
-                    AddRecord(newRecord);
+                    if (!string.IsNullOrEmpty(newRecord.Label) &&
+                        (e.Result ?? false))
+                    {
+                        _recordService.AddRecord(newRecord.Label);
+                        foreach (var field in newRecord.Fields)
+                        {
+                            _recordService.AddRecordField(newRecord.Label, field.Label);
+                            _recordService.UpdateRecordFieldValue(newRecord.Label, field.Label, field.Value);
+                        }
+
+                        AddRecord(newRecord);
+                    }
                 }
+                dialog.ViewModel.CloseRequested += AddAccountRecordViewModel_CloseRequested;
+                dialog.ShowDialog();
+
+                */
+
+                if (dialog.ShowDialog() ?? false)
+                {
+                    var newRecord = dialog.ViewModel.AccountRecord;
+                    if (!string.IsNullOrEmpty(newRecord.Label))
+                    {
+                        _recordService.AddRecord(newRecord.Label);
+                        foreach (var field in newRecord.Fields)
+                        {
+                            _recordService.AddRecordField(newRecord.Label, field.Label);
+                            _recordService.UpdateRecordFieldValue(newRecord.Label, field.Label, field.Value);
+                        }
+                        AddRecord(newRecord);
+                    }
+                }
+            });
+
+            // TODO: Tests for filter
+            FilterCommand = new RelayCommand(() =>
+            {
+                UpdateRecords(_recordService.FilterRecords(SearchFilter));
             });
 
             CloseCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(true)));
@@ -102,16 +129,38 @@ namespace FMX.AccountsManager
 
         #region Helpers
 
+        /// <summary>
+        /// Adds record and subscribes on its remove event
+        /// </summary>
+        /// <param name="record">Record that will be added</param>
         private void AddRecord(AccountRecordViewModel record)
         {
             Records.Add(record);
             record.Removed += NewRecord_Removed;
         }
 
+        /// <summary>
+        /// Removes record and unsubscribes from its remove event
+        /// </summary>
+        /// <param name="record">Record that will be added</param>
         private void RemoveRecord(AccountRecordViewModel record)
         {
             Records.Remove(record);
             record.Removed -= NewRecord_Removed;
+        }
+
+        private void UnsubscribeAll()
+        {
+            //foreach (var r in Records) r.Removed -= NewRecord_Removed;
+            for (int i = 0; i < Records.Count; i++) Records[i].Removed -= NewRecord_Removed;
+        }
+
+        private void UpdateRecords(IEnumerable<AccountRecordViewModel> records)
+        {
+            UnsubscribeAll();
+            Records.Clear();
+
+            foreach (var rec in records) AddRecord(rec);
         }
 
         #endregion
@@ -123,10 +172,7 @@ namespace FMX.AccountsManager
         /// </summary>
         public void Dispose()
         {
-            foreach (var r in Records)
-            {
-                r.Removed -= NewRecord_Removed;
-            }
+            UnsubscribeAll();
         }
 
         #endregion

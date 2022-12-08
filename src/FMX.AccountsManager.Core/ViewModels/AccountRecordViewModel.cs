@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace FMX.AccountsManager
+namespace FMX.AccountsManager.Core
 {
     /// <summary>
     /// Account record, which is in records collection and stores some account data
@@ -36,9 +36,19 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public AccountRecordViewModel()
+        public AccountRecordViewModel(IDialogService dialogService)
         {
-            RemoveCommand = new RelayCommand(() => Removed(this, new RemovedEventArgs()));
+            RemoveCommand = new RelayCommand(() => 
+            {
+                // TODO: Localize
+                if (dialogService.MessageBox("Are you sure to delete this account record?",
+                                             "Warning",
+                                             DialogButton.OK | DialogButton.Cancel)
+                                 .ShowDialog() ?? false)
+                {
+                    Removed(this, new RemovedEventArgs());
+                }
+            });
         }
     }
 }

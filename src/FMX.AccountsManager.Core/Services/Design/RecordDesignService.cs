@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FMX.AccountsManager.Design
+namespace FMX.AccountsManager.Core.Design
 {
     internal class RecordDesignService : IRecordService
     {
@@ -46,6 +46,11 @@ namespace FMX.AccountsManager.Design
         }
 
         public void UpdateRecordLabel(string recordLabel, string newLabel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AccountRecordViewModel> FilterRecords(string filter)
         {
             throw new NotImplementedException();
         }

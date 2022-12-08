@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FMX.AccountsManager
+namespace FMX.AccountsManager.Core
 {
     public class DialogDesignService : IDialogService
     {

@@ -1,4 +1,4 @@
-﻿namespace FMX.AccountsManager.Design
+﻿namespace FMX.AccountsManager.Core.Design
 {
     public static class AccountRecordFieldDesignModel
     {

@@ -1,8 +1,8 @@
-﻿namespace FMX.AccountsManager.Design
+﻿namespace FMX.AccountsManager.Core.Design
 {
     public class AccountRecordDesignModel
     {
-        public static AccountRecordViewModel Instance => new()
+        public static AccountRecordViewModel Instance => new(null)
         {
             Label = "Design Record Label",
             Fields = new()

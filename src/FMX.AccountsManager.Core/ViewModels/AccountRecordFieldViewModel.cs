@@ -1,4 +1,4 @@
-﻿namespace FMX.AccountsManager
+﻿namespace FMX.AccountsManager.Core
 {
     /// <summary>
     /// Record (item) of account record

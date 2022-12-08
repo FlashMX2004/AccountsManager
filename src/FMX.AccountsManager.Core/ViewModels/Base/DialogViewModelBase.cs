@@ -1,8 +1,18 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace FMX.AccountsManager
+namespace FMX.AccountsManager.Core
 {
+    /// <summary>
+    /// Represents one of dialog buttons
+    /// </summary>
+    public enum DialogButton
+    {
+        OK = 0b1,
+        No = 0b10,
+        Cancel = 0b100
+    }
+
     /// <summary>
     /// Base view model for all dialogs
     /// </summary>

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace FMX.AccountsManager
+namespace FMX.AccountsManager.Core
 {
+    /// <summary>
+    /// Service for managing account records
+    /// </summary>
     public interface IRecordService
     {
         #region All Records Managing
@@ -17,6 +20,13 @@ namespace FMX.AccountsManager
         /// </summary>
         /// <returns>Accounts collection</returns>
         IEnumerable<AccountRecordViewModel> GetAllRecords();
+
+        /// <summary>
+        /// Filters records by <paramref name="filter"/>
+        /// </summary>
+        /// <param name="filter">Filter string</param>
+        /// <returns>Accounts collection</returns>
+        IEnumerable<AccountRecordViewModel> FilterRecords(string filter);
 
         #endregion
 

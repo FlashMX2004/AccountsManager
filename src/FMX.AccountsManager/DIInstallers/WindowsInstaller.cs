@@ -25,12 +25,20 @@ namespace FMX.AccountsManager.DIInstallers
                                         })
                                         .LifestyleTransient());
 
+            container.Register(Component.For<MessageBoxDialog>()
+                                        .UsingFactoryMethod(() => new MessageBoxDialog
+                                        {
+                                            ViewModel = container.Resolve<MessageBoxViewModel>()
+                                        })
+                                        .LifestyleTransient());
+
             //
             // Dialog factories registring.
             //
             DialogService.OnDialogFactoriesRegistring += service =>
             {
                 service.RegisterDialogFactory(container.Resolve<AddAccountRecordDialog>);
+                service.RegisterDialogFactory(container.Resolve<MessageBoxDialog>);
             };
         }
     }

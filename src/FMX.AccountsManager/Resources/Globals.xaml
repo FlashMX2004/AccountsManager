@@ -5,8 +5,7 @@
     <sys:Double x:Key="WindowsWidth">600</sys:Double>
     
     <Thickness x:Key="WindowAppearFromThickness">0 400 0 -400</Thickness>
-    <Duration x:Key="WindowAppearDuration">0:0:.5</Duration>
+    <Duration x:Key="WindowAppearDuration">0:0:.3</Duration>
     <Duration x:Key="WindowButtonsAnimationDuration">0:0:.3</Duration>
     <Duration x:Key="ButtonAnimationDuration">0:0:.2</Duration>
-    
 </ResourceDictionary>

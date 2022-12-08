@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FMX.AccountsManager
 {
@@ -93,7 +94,9 @@ namespace FMX.AccountsManager
             for (int i = 0; i < mainKey.SubKeyCount; i++)
             {
                 // Create account record by key name
-                AccountRecordViewModel record = new() { Label = names[i], Fields = new() };
+                AccountRecordViewModel record = App.GetService<AccountRecordViewModel>();
+                record.Label = names[i];
+
                 // Get registry key
                 using RegistryKey recordKey = mainKey.OpenSubKey(record.Label)!;
 
@@ -114,6 +117,16 @@ namespace FMX.AccountsManager
 
             // Return result
             return result;
+        }
+
+        /// <summary>
+        /// Filters records by <paramref name="filter"/>
+        /// </summary>
+        /// <param name="filter">Filter string</param>
+        /// <returns>Accounts collection</returns>
+        public IEnumerable<AccountRecordViewModel> FilterRecords(string filter)
+        {
+            return GetAllRecords().Where(r => r.Label.ToLower().Contains(filter.ToLower()));
         }
 
         #endregion

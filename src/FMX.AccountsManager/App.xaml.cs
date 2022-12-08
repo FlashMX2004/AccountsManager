@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿global using FMX.AccountsManager.Core;
+using Castle.Windsor;
 using Castle.Windsor.Installer;
 using System.Reflection;
 using System.Windows;
