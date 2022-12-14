@@ -43,7 +43,20 @@ namespace FMX.AccountsManager.Core
         /// </summary>
         public ICommand CloseCommand { get; set; }
 
+        /// <summary>
+        /// Filters records when executed
+        /// </summary>
         public ICommand FilterCommand { get; set; }
+
+        /// <summary>
+        /// Saves to binary file format
+        /// </summary>
+        public ICommand SaveToBinaryCommand { get; set; }
+
+        /// <summary>
+        /// Saves to XML file format
+        /// </summary>
+        public ICommand SaveToXMLCommand { get; set; }
 
         #endregion
 
@@ -54,7 +67,11 @@ namespace FMX.AccountsManager.Core
         /// </summary>
         /// <param name="recordService">Service for managing records</param>
         /// <param name="dialogService">Service for managing dialogs</param>
-        public MainViewModel(IRecordService recordService, IDialogService dialogService)
+        public MainViewModel(IRecordService recordService,
+                             IDialogService dialogService,
+                             ISerializationService serializationService,
+                             IBinarySerializator binarySerializator,
+                             IXMLSerializator xmlSerializator)
         {
             _recordService = recordService;
             _dialogService = dialogService;
@@ -113,6 +130,8 @@ namespace FMX.AccountsManager.Core
                 UpdateRecords(_recordService.FilterRecords(SearchFilter));
             });
 
+            SaveToBinaryCommand = new RelayCommand(() => serializationService.SerializeBy(binarySerializator, Records));
+            SaveToXMLCommand    = new RelayCommand(() => serializationService.SerializeBy(xmlSerializator, Records));
             CloseCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(true)));
         }
 

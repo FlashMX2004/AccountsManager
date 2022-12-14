@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMX.AccountsManager.Core.Data;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -50,5 +51,10 @@ namespace FMX.AccountsManager.Core
                 }
             });
         }
+
+        /// <summary>
+        /// Returns an instance of this view model assigned with
+        /// </summary>
+        public AccountRecord ToData() => new AccountRecord { Label = Label, Fields = Fields.Select(vm => vm.ToData()).ToList() };
     }
 }

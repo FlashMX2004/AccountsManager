@@ -13,10 +13,29 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0"
+                    x:Name="EditButton"
                     Style="{StaticResource WindowButton}"
-                    Content="🖉"/>
-
+                    Content="🖉"
+                    ContextMenuService.IsEnabled="False"
+                    ContextMenuService.Placement="Bottom">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                        <i:CallMethodAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=local:RoutedWindow}}"
+                                                        MethodName="OpenEditContextMenu"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Button.ContextMenu>
+                    <ContextMenu Placement="Bottom">
+                        <MenuItem Header="Save To Binary" Command="{Binding SaveToBinaryCommand}"/>
+                        <MenuItem Header="Save To XML" Command="{Binding SaveToXMLCommand}"/>
+                        <!-- TODO: Save to .txt -->
+                        <!--<MenuItem Header="Save To TXT"/>-->
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+            
             <Button Grid.Column="1"
+                    x:Name="CloseButton"
                     Style="{StaticResource WindowButton}"
                     Command="{Binding CloseCommand}"
                     Content="X"/>
@@ -152,12 +171,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        
+
     </Style>
-    
-    <!-- User's choice buttons for dialog -->
-    <DataTemplate x:Key="DialogOK">
-        
-    </DataTemplate>
-    
+
 </ResourceDictionary>

@@ -9,6 +9,12 @@ namespace FMX.AccountsManager
     /// </summary>
     public class RegistryRecordService : IRecordService
     {
+        #region Privates
+
+        private readonly IClipboardService _clipboardService;
+
+        #endregion
+
         #region Publix
 
         /// <summary>
@@ -40,8 +46,10 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegistryRecordService()
+        public RegistryRecordService(IClipboardService clipboardService)
         {
+            _clipboardService = clipboardService;
+
             // Create main registry key if not exists
             using var mainKey = RegistryScope.OpenSubKey(REGISTRY_PATH);
             if (mainKey is null)
@@ -104,7 +112,7 @@ namespace FMX.AccountsManager
                 var fields = recordKey.GetValueNames()!;
                 for (int j = 0; j < recordKey.ValueCount; j++)
                 {
-                    record.Fields.Add(new() 
+                    record.Fields.Add(new(_clipboardService) 
                     {
                         Label = fields[j], 
                         Value = recordKey.GetValue(fields[j]).ToString() 

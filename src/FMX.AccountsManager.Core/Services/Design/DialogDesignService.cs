@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FMX.AccountsManager.Core
+﻿namespace FMX.AccountsManager.Core.Design
 {
     public class DialogDesignService : IDialogService
     {

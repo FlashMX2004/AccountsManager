@@ -17,7 +17,7 @@
         /// <param name="message">Message</param>
         /// <param name="title">Title</param>
         /// <param name="buttons">Buttons (DialogButton.OK | DialogButton.Cancel)</param>
-        IDialog<MessageBoxViewModel> MessageBox(string message, string title, DialogButton buttons)
+        IDialog<MessageBoxViewModel> MessageBox(string message, string title = "Information", DialogButton buttons = DialogButton.OK)
         {
             var mbox = Get<MessageBoxViewModel>();
             mbox.ViewModel.Message = message;

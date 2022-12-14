@@ -27,6 +27,7 @@
         
         <Button Width="70"
                 Content="Copy"
-                Grid.Column="2"/>
+                Grid.Column="2"
+                Command="{Binding CopyToClipboardCommand}"/>
     </Grid>
 </UserControl>

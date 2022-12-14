@@ -27,7 +27,7 @@ namespace FMX.AccountsManager
                 vm.CloseRequested += ViewModel_CloseRequested;
 
                 // Add first empty field
-                vm.AddFieldCommand.Execute(new AccountRecordFieldViewModel());
+                vm.AddFieldCommand.Execute(new AccountRecordFieldViewModel(App.GetService<IClipboardService>()));
             };
         }
 
@@ -75,7 +75,7 @@ namespace FMX.AccountsManager
                 // Add new empty field when empty label was changed
                 if (ViewModel.AccountRecord.Fields.Last().Label != "")
                 {
-                    ViewModel.AddFieldCommand.Execute(new AccountRecordFieldViewModel());
+                    ViewModel.AddFieldCommand.Execute(new AccountRecordFieldViewModel(App.GetService<IClipboardService>()));
                 }
             }
         }
