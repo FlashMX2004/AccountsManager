@@ -14,7 +14,7 @@ namespace FMX.AccountsManager.DIInstallers
             container.Register(Component.For<MainViewModel>().LifestyleSingleton());
             container.Register(Component.For<AddAccountRecordViewModel>().LifestyleTransient());
             container.Register(Component.For<MessageBoxViewModel>().LifestyleTransient());
-            container.Register(Component.For<AccountRecordViewModel>().LifestyleTransient());
+            container.Register(Component.For<AccountRecordViewModel>().UsingFactory<IAccountRecordViewModelFactory, AccountRecordViewModel>(f => f.Create()).LifestyleTransient());
         }
     }
 }

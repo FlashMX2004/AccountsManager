@@ -64,6 +64,11 @@ namespace FMX.AccountsManager.Core
         /// </summary>
         public ICommand ImportBackupCommand { get; set; }
 
+        /// <summary>
+        /// Removes all data from device
+        /// </summary>
+        public ICommand DeleteAllDataCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -156,6 +161,16 @@ namespace FMX.AccountsManager.Core
                 _recordService.UpdateAllRecords(_serializationService.Deserialize());
                 UpdateRecords(_recordService.FilterRecords(SearchFilter));
                 _dialogService.MessageBox("Account records backup was successfully imported.").ShowDialog();
+            });
+
+            DeleteAllDataCommand = new RelayCommand(() =>
+            {
+                if (_dialogService.MessageBox("Are you sure? All data will be deleted from this device!", "Warning", DialogButton.OK | DialogButton.Cancel).ShowDialog() ?? false)
+                {
+                    _recordService.ClearAllData();
+                    UpdateRecords(_recordService.FilterRecords(SearchFilter));
+                    _dialogService.MessageBox("All account records data successfully deleted from this device.").ShowDialog();
+                }
             });
 
             CloseCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(true)));

@@ -133,6 +133,19 @@ namespace FMX.AccountsManager
                                                                      .ToLower()));
         }
 
+        /// <summary>
+        /// Clears all records data from device
+        /// </summary>
+        public void ClearAllData()
+        {
+            // Find registry key
+            using var mainKey = RegistryScope.OpenSubKey(REGISTRY_PATH);
+
+            // Delete if exists
+            if (mainKey is not null)
+                RegistryScope.DeleteSubKeyTree(REGISTRY_PATH);
+        }
+
         #endregion
 
         #region Records Managing

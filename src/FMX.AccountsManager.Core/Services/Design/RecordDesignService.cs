@@ -48,5 +48,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public void ClearAllData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

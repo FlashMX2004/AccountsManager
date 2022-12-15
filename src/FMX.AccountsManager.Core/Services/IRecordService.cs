@@ -28,6 +28,11 @@ namespace FMX.AccountsManager.Core
         /// <returns>Accounts collection</returns>
         IEnumerable<AccountRecordViewModel> FilterRecords(string filter);
 
+        /// <summary>
+        /// Clears all records data from device
+        /// </summary>
+        void ClearAllData();
+
         #endregion
 
         #region Records Managing
