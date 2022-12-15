@@ -13,7 +13,7 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Extention of files with serialized backup of accounts manager
         /// </summary>
-        public const string EXTENTION = ".xml";
+        public const string EXTENTION = ".amx";
 
         #endregion
 

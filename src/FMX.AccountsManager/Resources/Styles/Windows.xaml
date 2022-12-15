@@ -26,10 +26,11 @@
                 </i:Interaction.Triggers>
                 <Button.ContextMenu>
                     <ContextMenu Placement="Bottom">
-                        <MenuItem Header="Save To Binary" Command="{Binding SaveToBinaryCommand}"/>
-                        <MenuItem Header="Save To XML" Command="{Binding SaveToXMLCommand}"/>
+                        <MenuItem Header="Save Backup To Binary" Command="{Binding SaveToBinaryCommand}"/>
+                        <MenuItem Header="Save Backup To XML" Command="{Binding SaveToXMLCommand}"/>
                         <!-- TODO: Save to .txt -->
                         <!--<MenuItem Header="Save To TXT"/>-->
+                        <MenuItem Header="Import Backup" Command="{Binding ImportBackupCommand}"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace FMX.AccountsManager.Core
@@ -14,6 +12,9 @@ namespace FMX.AccountsManager.Core
 
         private readonly IRecordService _recordService;
         private readonly IDialogService _dialogService;
+        private readonly ISerializationService _serializationService;
+        private readonly IBinarySerializator _binarySerializator;
+        private readonly IXMLSerializator _xmlSerializator;
 
         #endregion
 
@@ -58,6 +59,11 @@ namespace FMX.AccountsManager.Core
         /// </summary>
         public ICommand SaveToXMLCommand { get; set; }
 
+        /// <summary>
+        /// Imports binary or xml etc... backup
+        /// </summary>
+        public ICommand ImportBackupCommand { get; set; }
+
         #endregion
 
         #region Constructor
@@ -75,6 +81,9 @@ namespace FMX.AccountsManager.Core
         {
             _recordService = recordService;
             _dialogService = dialogService;
+            _serializationService = serializationService;
+            _binarySerializator = binarySerializator;
+            _xmlSerializator = xmlSerializator;
 
             foreach (var rec in _recordService.GetAllRecords())
                 AddRecord(rec);
@@ -130,8 +139,25 @@ namespace FMX.AccountsManager.Core
                 UpdateRecords(_recordService.FilterRecords(SearchFilter));
             });
 
-            SaveToBinaryCommand = new RelayCommand(() => serializationService.SerializeBy(binarySerializator, Records));
-            SaveToXMLCommand    = new RelayCommand(() => serializationService.SerializeBy(xmlSerializator, Records));
+            SaveToBinaryCommand = new RelayCommand(() => 
+            {
+                serializationService.SerializeBy(_binarySerializator, Records);
+                _dialogService.MessageBox("Account records backup as binary was saved successfully.").ShowDialog();
+            });
+
+            SaveToXMLCommand    = new RelayCommand(() =>
+            {
+                serializationService.SerializeBy(_xmlSerializator, Records);
+                _dialogService.MessageBox("Account records backup as xml was saved successfully.").ShowDialog();
+            });
+
+            ImportBackupCommand = new RelayCommand(() =>
+            {
+                _recordService.UpdateAllRecords(_serializationService.Deserialize());
+                UpdateRecords(_recordService.FilterRecords(SearchFilter));
+                _dialogService.MessageBox("Account records backup was successfully imported.").ShowDialog();
+            });
+
             CloseCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(true)));
         }
 

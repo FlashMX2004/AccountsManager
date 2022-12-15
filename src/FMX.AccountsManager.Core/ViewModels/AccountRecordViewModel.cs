@@ -13,12 +13,12 @@ namespace FMX.AccountsManager.Core
         /// <summary>
         /// Accound record label
         /// </summary>
-        public string Label { get; set; } = "";
+        public required string Label { get; set; }
 
         /// <summary>
         /// Accound record records (items)
         /// </summary>
-        public ObservableCollection<AccountRecordFieldViewModel> Fields { get; set; } = new();
+        public required ObservableCollection<AccountRecordFieldViewModel> Fields { get; set; }
 
         #region IRemovable Members
 

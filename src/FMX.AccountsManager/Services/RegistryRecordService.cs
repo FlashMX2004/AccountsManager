@@ -11,7 +11,8 @@ namespace FMX.AccountsManager
     {
         #region Privates
 
-        private readonly IClipboardService _clipboardService;
+        private readonly IAccountRecordFieldViewModelFactory _fieldVMFacory;
+        private readonly IAccountRecordViewModelFactory _recordVMFactory;
 
         #endregion
 
@@ -46,9 +47,11 @@ namespace FMX.AccountsManager
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RegistryRecordService(IClipboardService clipboardService)
+        public RegistryRecordService(IAccountRecordFieldViewModelFactory fieldVMFacory,
+                                     IAccountRecordViewModelFactory recordVMFactory)
         {
-            _clipboardService = clipboardService;
+            _fieldVMFacory = fieldVMFacory;
+            _recordVMFactory = recordVMFactory;
 
             // Create main registry key if not exists
             using var mainKey = RegistryScope.OpenSubKey(REGISTRY_PATH);
@@ -101,26 +104,16 @@ namespace FMX.AccountsManager
             var names = mainKey.GetSubKeyNames();
             for (int i = 0; i < mainKey.SubKeyCount; i++)
             {
-                // Create account record by key name
-                AccountRecordViewModel record = App.GetService<AccountRecordViewModel>();
-                record.Label = names[i];
-
                 // Get registry key
-                using RegistryKey recordKey = mainKey.OpenSubKey(record.Label)!;
+                using RegistryKey recordKey = mainKey.OpenSubKey(names[i])!;
 
-                // Fill record fields collection by values in registry key
-                var fields = recordKey.GetValueNames()!;
-                for (int j = 0; j < recordKey.ValueCount; j++)
-                {
-                    record.Fields.Add(new(_clipboardService) 
-                    {
-                        Label = fields[j], 
-                        Value = recordKey.GetValue(fields[j]).ToString() 
-                    });
-                }
-
-                // Add created account record to result
-                result.Add(record);
+                // Create account record by key name
+                result.Add(
+                    _recordVMFactory.Create(label:  names[i], 
+                                            fields: recordKey.GetValueNames()!
+                                                             .Select(n => _fieldVMFacory.Create(label: n, 
+                                                                                                value: recordKey.GetValue(n)!.ToString()!)))
+                );
             }
 
             // Return result
@@ -134,7 +127,10 @@ namespace FMX.AccountsManager
         /// <returns>Accounts collection</returns>
         public IEnumerable<AccountRecordViewModel> FilterRecords(string filter)
         {
-            return GetAllRecords().Where(r => r.Label.ToLower().Contains(filter.ToLower()));
+            return GetAllRecords().Where(r => r.Label.Replace(" ", "")
+                                                     .ToLower()
+                                                     .Contains(filter.Replace(" ", "")
+                                                                     .ToLower()));
         }
 
         #endregion
