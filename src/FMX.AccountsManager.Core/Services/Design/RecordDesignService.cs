@@ -9,7 +9,17 @@
             throw new NotImplementedException();
         }
 
+        public void AddRecord(AccountRecordViewModel record)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddRecordField(string recordLabel, string newRecordField)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearAllData()
         {
             throw new NotImplementedException();
         }
@@ -20,6 +30,11 @@
         }
 
         public void DeleteRecordField(string recordLabel, string fieldLabel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AccountRecordViewModel> FilterRecords(string filter)
         {
             throw new NotImplementedException();
         }
@@ -40,16 +55,6 @@
         }
 
         public void UpdateRecordLabel(string recordLabel, string newLabel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<AccountRecordViewModel> FilterRecords(string filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ClearAllData()
         {
             throw new NotImplementedException();
         }

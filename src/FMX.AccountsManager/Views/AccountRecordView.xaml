@@ -24,12 +24,24 @@
                    HorizontalAlignment="Center"
                    />
 
-        <Button Content="-"
-                Command="{Binding RemoveCommand}"
-                HorizontalAlignment="Right"
-                Width="50"
-                Height="30"
-                />
+        <Grid HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="🖉"
+                    Grid.Column="0"
+                    Command="{Binding EditCommand}"
+                    Width="50"
+                    Height="30"
+                    />
+            <Button Content="-"
+                    Grid.Column="1"
+                    Command="{Binding RemoveCommand}"
+                    Width="50"
+                    Height="30"
+                    />
+        </Grid>
 
         <ItemsControl Grid.Row="1"
                       ItemsSource="{Binding Fields}">

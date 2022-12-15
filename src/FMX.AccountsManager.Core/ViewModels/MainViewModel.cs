@@ -127,12 +127,7 @@ namespace FMX.AccountsManager.Core
                     var newRecord = dialog.ViewModel.AccountRecord;
                     if (!string.IsNullOrEmpty(newRecord.Label))
                     {
-                        _recordService.AddRecord(newRecord.Label);
-                        foreach (var field in newRecord.Fields)
-                        {
-                            _recordService.AddRecordField(newRecord.Label, field.Label);
-                            _recordService.UpdateRecordFieldValue(newRecord.Label, field.Label, field.Value);
-                        }
+                        _recordService.AddRecord(newRecord);
                         AddRecord(newRecord);
                     }
                 }
@@ -146,21 +141,33 @@ namespace FMX.AccountsManager.Core
 
             SaveToBinaryCommand = new RelayCommand(() => 
             {
-                serializationService.SerializeBy(_binarySerializator, Records);
-                _dialogService.MessageBox("Account records backup as binary was saved successfully.").ShowDialog();
+                var path = _dialogService.SaveDialog(_binarySerializator);
+                if (path is not null)
+                {
+                    serializationService.SerializeBy(_binarySerializator, Records, path);
+                    _dialogService.MessageBox("Account records backup as binary was saved successfully.").ShowDialog();
+                }
             });
 
             SaveToXMLCommand    = new RelayCommand(() =>
             {
-                serializationService.SerializeBy(_xmlSerializator, Records);
-                _dialogService.MessageBox("Account records backup as xml was saved successfully.").ShowDialog();
+                var path = _dialogService.SaveDialog(_xmlSerializator);
+                if (path is not null)
+                {
+                    serializationService.SerializeBy(_xmlSerializator, Records, path);
+                    _dialogService.MessageBox("Account records backup as xml was saved successfully.").ShowDialog();
+                }
             });
 
             ImportBackupCommand = new RelayCommand(() =>
             {
-                _recordService.UpdateAllRecords(_serializationService.Deserialize());
-                UpdateRecords(_recordService.FilterRecords(SearchFilter));
-                _dialogService.MessageBox("Account records backup was successfully imported.").ShowDialog();
+                var path = _dialogService.OpenDialog();
+                if (path is not null)
+                {
+                    _recordService.UpdateAllRecords(_serializationService.Deserialize(path));
+                    UpdateRecords(_recordService.FilterRecords(SearchFilter));
+                    _dialogService.MessageBox("Account records backup was successfully imported.").ShowDialog();
+                }
             });
 
             DeleteAllDataCommand = new RelayCommand(() =>
@@ -185,6 +192,15 @@ namespace FMX.AccountsManager.Core
             }
         }
 
+        private void NewRecord_Edited(object? sender, EditedEventArgs e)
+        {
+            if (sender is AccountRecordViewModel vm)
+            {
+                _recordService.DeleteRecord(e.OldLabel);
+                _recordService.AddRecord(vm);
+            }
+        }
+
         #endregion
 
         #region Helpers
@@ -197,6 +213,7 @@ namespace FMX.AccountsManager.Core
         {
             Records.Add(record);
             record.Removed += NewRecord_Removed;
+            record.Edited  += NewRecord_Edited;
         }
 
         /// <summary>
@@ -207,12 +224,16 @@ namespace FMX.AccountsManager.Core
         {
             Records.Remove(record);
             record.Removed -= NewRecord_Removed;
+            record.Edited  -= NewRecord_Edited;
         }
 
         private void UnsubscribeAll()
         {
-            //foreach (var r in Records) r.Removed -= NewRecord_Removed;
-            for (int i = 0; i < Records.Count; i++) Records[i].Removed -= NewRecord_Removed;
+            for (int i = 0; i < Records.Count; i++)
+            {
+                Records[i].Removed -= NewRecord_Removed;
+                Records[i].Edited  -= NewRecord_Edited;
+            }
         }
 
         private void UpdateRecords(IEnumerable<AccountRecordViewModel> records)

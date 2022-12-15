@@ -44,6 +44,12 @@ namespace FMX.AccountsManager.Core
         void AddRecord(string newLabel);
 
         /// <summary>
+        /// Adds new account record
+        /// </summary>
+        /// <param name="record">View model of new record</param>
+        void AddRecord(AccountRecordViewModel record);
+
+        /// <summary>
         /// Removes record with current label
         /// </summary>
         /// <param name="recordLabel"></param>

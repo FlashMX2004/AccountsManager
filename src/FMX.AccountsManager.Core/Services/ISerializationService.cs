@@ -10,11 +10,11 @@
         /// </summary>
         /// <param name="serializator">Serializator that will serialize <paramref name="viewModels"/> collection</param>
         /// <param name="viewModels">Account record view models collection</param>
-        void SerializeBy(ISerializator serializator, IEnumerable<AccountRecordViewModel> viewModels);
+        void SerializeBy(ISerializator serializator, IEnumerable<AccountRecordViewModel> viewModels, string path);
 
         /// <summary>
         /// Deserializing view models collection
         /// </summary>
-        IEnumerable<AccountRecordViewModel> Deserialize();
+        IEnumerable<AccountRecordViewModel> Deserialize(string path);
     }
 }

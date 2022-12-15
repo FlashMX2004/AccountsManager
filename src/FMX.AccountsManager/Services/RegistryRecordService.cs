@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using FMX.AccountsManager.Core;
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -161,6 +162,20 @@ namespace FMX.AccountsManager
 
             // Add subkey for record
             key?.CreateSubKey(newLabel);
+        }
+
+        /// <summary>
+        /// Adds new account record
+        /// </summary>
+        /// <param name="record">View model of new record</param>
+        public void AddRecord(AccountRecordViewModel record)
+        {
+            AddRecord(record.Label);
+            foreach (var field in record.Fields)
+            {
+                AddRecordField(record.Label, field.Label);
+                UpdateRecordFieldValue(record.Label, field.Label, field.Value);
+            }
         }
 
         /// <summary>

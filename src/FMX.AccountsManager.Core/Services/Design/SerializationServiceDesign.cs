@@ -8,12 +8,12 @@ namespace FMX.AccountsManager.Core.Design
 {
     public class SerializationServiceDesign : ISerializationService
     {
-        public IEnumerable<AccountRecordViewModel> Deserialize()
+        public IEnumerable<AccountRecordViewModel> Deserialize(string path)
         {
             throw new NotImplementedException();
         }
 
-        public void SerializeBy(ISerializator serializator, IEnumerable<AccountRecordViewModel> viewModels)
+        public void SerializeBy(ISerializator serializator, IEnumerable<AccountRecordViewModel> viewModels, string path)
         {
             throw new NotImplementedException();
         }

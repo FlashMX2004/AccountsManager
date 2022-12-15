@@ -27,5 +27,8 @@
             mbox.ViewModel.IsCancelVisible = (buttons & DialogButton.Cancel) == DialogButton.Cancel;
             return mbox;
         }
+
+        string? SaveDialog(ISerializator serializator);
+        string? OpenDialog();
     }
 }

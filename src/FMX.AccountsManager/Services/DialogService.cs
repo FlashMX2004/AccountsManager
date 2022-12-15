@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FMX.AccountsManager.Core;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 
 namespace FMX.AccountsManager
@@ -40,6 +42,33 @@ namespace FMX.AccountsManager
         public DialogService() =>
             // Start registring (mapping) factories
             OnDialogFactoriesRegistring?.Invoke(this);
+
+        public string? SaveDialog(ISerializator serializator)
+        {
+            var dialog = new SaveFileDialog
+            {
+                Title = "Save accounts backup",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                DefaultExt = serializator is IXMLSerializator ? XMLSerializator.EXTENTION : BinarySerializator.EXTENTION
+            };
+
+            return dialog.ShowDialog() ?? false ? dialog.FileName : null;
+        }
         
+        public string? OpenDialog()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Import accounts backup",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Multiselect = false,
+                CheckFileExists = true,
+                Filter = $"Binary (*{BinarySerializator.EXTENTION})|*{BinarySerializator.EXTENTION}|" +
+                         $"XML (*{XMLSerializator.EXTENTION})|*{XMLSerializator.EXTENTION}",
+                FilterIndex = 2
+            };
+
+            return dialog.ShowDialog() ?? false ? dialog.FileName : null;
+        }
     }
 }

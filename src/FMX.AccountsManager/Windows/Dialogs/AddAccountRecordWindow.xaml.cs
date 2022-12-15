@@ -37,7 +37,7 @@ namespace FMX.AccountsManager
             ViewModel.RemoveFieldCommand.Execute(ViewModel.AccountRecord.Fields.Last());
         }
 
-        private void Fields_CollectionChanged(object? sender,NotifyCollectionChangedEventArgs e)
+        private void Fields_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             // Subscribe when new field is added
             if (e.Action == NotifyCollectionChangedAction.Add)
@@ -64,7 +64,7 @@ namespace FMX.AccountsManager
             {
                 // Remove field if label and value are empty
                 if (string.IsNullOrEmpty(field.Label) &&
-                    string.IsNullOrEmpty(field.Value) &&
+                    //string.IsNullOrEmpty(field.Value) &&
                     // We don't want to remove first empty field
                     ViewModel.AccountRecord.Fields.Count > 1)
                 {

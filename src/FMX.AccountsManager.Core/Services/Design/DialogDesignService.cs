@@ -6,5 +6,15 @@
         {
             return null;
         }
+
+        public string? OpenDialog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string? SaveDialog(ISerializator serializator)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

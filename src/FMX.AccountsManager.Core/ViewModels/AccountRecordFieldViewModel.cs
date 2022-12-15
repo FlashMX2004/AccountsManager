@@ -6,28 +6,14 @@ namespace FMX.AccountsManager.Core
     /// <summary>
     /// Record (item) of account record
     /// </summary>
-    public class AccountRecordFieldViewModel : ViewModelBase
+    public class AccountRecordFieldViewModel : ViewModelBase, ICloneable
     {
-        private string _label = "";
+        private readonly IClipboardService _clipboardService;
 
         /// <summary>
         /// Label of record
         /// </summary>
-        public string Label
-        {
-            get => _label;
-            set
-            {
-                // TODO:
-                // I don't really know why FodyWeavers doesn't invoke PropertyChanged,
-                // but properties are updeted when ui is updated
-                if (_label != value)
-                {
-                    _label = value;
-                    InvokePropertyChanged(nameof(Label));
-                }
-            }
-        }
+        public string Label { get; set; } = "";
 
         /// <summary>
         /// Value of record
@@ -44,12 +30,24 @@ namespace FMX.AccountsManager.Core
         /// </summary>
         public AccountRecordFieldViewModel(IClipboardService clipboardService)
         {
-            CopyToClipboardCommand = new RelayCommand(() => clipboardService.CopyToClipboard(Value));
+            _clipboardService = clipboardService;
+
+            CopyToClipboardCommand = new RelayCommand(() => _clipboardService.CopyToClipboard(Value));
         }
 
         /// <summary>
         /// Returns an instance of this view model assigned with
         /// </summary>
         public AccountRecordField ToData() => new() { Label = Label, Value = Value };
+
+        /// <summary>
+        /// Clones current view model, so cloned will be another instance
+        /// </summary>
+        /// <returns>Cloned view model</returns>
+        public object Clone() => new AccountRecordFieldViewModel(_clipboardService)
+        {
+            Label = Label,
+            Value = Value
+        };
     }
 }

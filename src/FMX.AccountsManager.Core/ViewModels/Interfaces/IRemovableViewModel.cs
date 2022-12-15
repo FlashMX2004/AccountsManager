@@ -1,20 +1,19 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace FMX.AccountsManager.Core
 {
     /// <summary>
-    /// Object that can be removed
+    /// View model that can be removed
     /// </summary>
-    public interface IRemovable
+    public interface IRemovableViewModel
     {
         /// <summary>
-        /// Removes this object when executed
+        /// Removes this view model when executed
         /// </summary>
         ICommand RemoveCommand { get; }
 
         /// <summary>
-        /// Fires when this object is removed
+        /// Fires when this view model is removed
         /// </summary>
         event EventHandler<RemovedEventArgs> Removed;
     }
