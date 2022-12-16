@@ -1,0 +1,88 @@
+﻿<local:WindowBase 
+    x:Class="FMX.AccountsManager.MainWindow"
+    x:TypeArguments="core:MainViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dm="clr-namespace:FMX.AccountsManager.Core.Design;assembly=FMX.AccountsManager.Core" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:core="clr-namespace:FMX.AccountsManager.Core;assembly=FMX.AccountsManager.Core"
+    xmlns:local="clr-namespace:FMX.AccountsManager"
+    d:DataContext="{x:Static dm:MainDesignModel.Instance}"
+    mc:Ignorable="d"
+    Title="Accounts Manager"
+    Height="450"
+    Width="{StaticResource WindowsWidth}"
+    Style="{StaticResource WindowStyle}">
+    
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding CloseCommand}"/>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddAccountRecordCommand}"/>
+    </Window.InputBindings>
+
+    <Window.Triggers>
+        
+    </Window.Triggers>
+    
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="SearchTextBox"
+                     Grid.Column="1"
+                     TextAlignment="Center"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Stretch"
+                     Text="{Binding SearchFilter, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding FilterCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+            
+            
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <!-- Margin="0 0 -15 0" -->
+            <ScrollViewer Grid.Column="1"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Records}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:AccountRecordView/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Button Grid.Row="2" 
+                    Grid.Column="1" 
+                    Content="+"
+                    Command="{Binding AddAccountRecordCommand}"/>
+        </Grid>
+    </Grid>
+</local:WindowBase>
