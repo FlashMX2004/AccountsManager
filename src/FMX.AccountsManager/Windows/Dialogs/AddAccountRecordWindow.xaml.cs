@@ -23,6 +23,10 @@ namespace FMX.AccountsManager
                 // then add new empty field
                 vm.AccountRecord.Fields.CollectionChanged += Fields_CollectionChanged;
 
+                // Subscribe on all existing fields
+                foreach (var field in vm.AccountRecord.Fields)
+                    field.PropertyChanged += Field_PropertyChanged;
+
                 // Clear last empty field when close
                 vm.CloseRequested += ViewModel_CloseRequested;
 

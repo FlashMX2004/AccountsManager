@@ -1,3 +1,4 @@
+using FMX.AccountsManager.Core;
 using Microsoft.Win32;
 
 namespace FMX.AccountsManagerTests
@@ -6,12 +7,16 @@ namespace FMX.AccountsManagerTests
     {
         private const string ACCOUNT_RECORD_LABEL = "TEST_ACCOUNT_RECORD";
 
+        private IAccountRecordFieldViewModelFactory _fieldVMFactory;
+        private IAccountRecordViewModelFactory _recordVMFactory;
         private RegistryRecordService _recordService;
 
         [SetUp]
         public void Setup()
         {
-            _recordService = new RegistryRecordService();
+            _fieldVMFactory = new AccountRecordFieldViewModelFactory(new ClipboardService());
+            _recordVMFactory = new AccountRecordViewModelFactory(new DialogService(), _fieldVMFactory);
+            _recordService = new RegistryRecordService(_fieldVMFactory,_recordVMFactory);
         }
 
         #region Account Records Managing Tests
@@ -170,25 +175,17 @@ namespace FMX.AccountsManagerTests
             string record2 = "Account2";
             List<AccountRecordViewModel> records = new()
             {
-                new AccountRecordViewModel
+                _recordVMFactory.Create(record1, new AccountRecordFieldViewModel[]
                 {
-                    Label = record1,
-                    Fields = new()
-                    {
-                        new AccountRecordFieldViewModel { Label = "Username", Value = "Username1" },
-                        new AccountRecordFieldViewModel { Label = "Email", Value = "Email1" },
-                        new AccountRecordFieldViewModel { Label = "Password", Value = "Password1" },
-                    }
-                },
-                new AccountRecordViewModel
+                    _fieldVMFactory.Create(label: "Username",   value: "Username1"),
+                    _fieldVMFactory.Create(label: "Email",      value: "Email1"),
+                    _fieldVMFactory.Create(label: "Password",   value: "Password1"),
+                }),
+                _recordVMFactory.Create(record2, new AccountRecordFieldViewModel[]
                 {
-                    Label = record2,
-                    Fields = new()
-                    {
-                        new AccountRecordFieldViewModel { Label = "Email", Value = "Email2" },
-                        new AccountRecordFieldViewModel { Label = "Password", Value = "Password2" },
-                    }
-                }
+                    _fieldVMFactory.Create(label: "Email",      value: "Email2"),
+                    _fieldVMFactory.Create(label: "Password",   value: "Password2"),
+                }),
             };
 
             // Act
@@ -215,8 +212,6 @@ namespace FMX.AccountsManagerTests
             // Backup
             _recordService.UpdateAllRecords(backup);
         }
-
-
 
         #endregion
 
