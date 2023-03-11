@@ -1,8 +1,4 @@
-﻿using FMX.AccountsManager.Core.Data;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -28,7 +24,7 @@ namespace FMX.AccountsManager
 
         public void SerializeBy(ISerializator serializator, IEnumerable<AccountRecordViewModel> viewModels, string path)
         {
-            if (File.Exists(path))
+            if (!File.Exists(path))
             {
                 serializator.Serialize(viewModels.Select(vm => vm.ToData()).ToList(), path);
             }

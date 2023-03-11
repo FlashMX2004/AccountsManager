@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FMX.AccountsManager.Core
+﻿namespace FMX.AccountsManager.Core
 {
     /// <summary>
     /// Requestable for close

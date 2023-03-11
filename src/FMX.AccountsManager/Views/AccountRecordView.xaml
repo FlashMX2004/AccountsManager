@@ -44,7 +44,8 @@
         </Grid>
 
         <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding Fields}">
+                      ItemsSource="{Binding Fields}"
+                      Focusable="False">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     

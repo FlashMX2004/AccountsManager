@@ -19,6 +19,10 @@
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding CloseCommand}"/>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding AddAccountRecordCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveToXMLCommand}"/>
+        <KeyBinding Key="B" Modifiers="Ctrl" Command="{Binding SaveToBinaryCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding FocusSearchInput}"/>
+        <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding ImportBackupCommand}"/>
     </Window.InputBindings>
 
     <Window.Triggers>
@@ -52,7 +56,6 @@
                 </i:Interaction.Triggers>
             </TextBox>
             
-            
         </Grid>
 
         <Grid Grid.Row="1">
@@ -70,7 +73,8 @@
             <!-- Margin="0 0 -15 0" -->
             <ScrollViewer Grid.Column="1"
                           ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding Records}">
+                <ItemsControl ItemsSource="{Binding Records}"
+                              Focusable="False">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:AccountRecordView/>

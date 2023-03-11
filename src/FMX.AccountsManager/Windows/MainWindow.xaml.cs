@@ -14,7 +14,24 @@ namespace FMX.AccountsManager
         public MainWindow()
         {
             InitializeComponent();
-            SearchTextBox.Focus();
+            Loaded += (_, _) =>
+            {
+                ViewModel!.FocusRequested += ViewModel_FocusRequested;
+                ViewModel!.FocusSearchInput.Execute(this);
+            };
+            Activated += (_, _) =>
+            {
+                ViewModel!.FocusSearchInput.Execute(this);
+            };
+        }
+
+        /// <summary>
+        /// Fires when view model's focus requested event was fired
+        /// </summary>
+        private void ViewModel_FocusRequested(object? sender, RequestFocusEventArgs e)
+        {
+            if (e.FocusedElement == RequestFocusEventArgs.FOCUSED_SEARCH_TEXT)
+                SearchTextBox.Focus();
         }
 
         /// <summary>

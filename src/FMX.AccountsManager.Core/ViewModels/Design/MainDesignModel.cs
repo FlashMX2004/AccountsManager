@@ -7,8 +7,8 @@ namespace FMX.AccountsManager.Core.Design
         public static MainViewModel Instance => new(new RecordDesignService(),
                                                     new DialogDesignService(),
                                                     new SerializationServiceDesign(),
-                                                    (IBinarySerializator)new SerializatorDesign(),
-                                                    (IXMLSerializator)new SerializatorDesign())
+                                                    null!,
+                                                    null!)
         {
             SearchFilter = "Dsign Search Filter Text",
             Records = new()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FMX.AccountsManager
 {
@@ -21,7 +22,7 @@ namespace FMX.AccountsManager
         public WindowBase()
         {
             // Correct window state
-            Initialized += (_, e) =>
+            Loaded += (_, e) =>
             {
                 SetWindowPosition();
             };
@@ -69,10 +70,8 @@ namespace FMX.AccountsManager
         /// </summary>
         private void SetWindowPosition()
         {
-            var screen = WpfScreen.GetScreenFrom(this);
-
-            Top = screen.WorkingArea.Bottom - Height;
-            Left = screen.WorkingArea.Right / 2 - Width / 2;
+            Left = System.Windows.SystemParameters.WorkArea.Right / 2 - Width/2;
+            Top = System.Windows.SystemParameters.WorkArea.Bottom - Height;// - (screen.DeviceBounds.Bottom - screen.WorkingArea.Bottom);
         }
 
         /// <summary>

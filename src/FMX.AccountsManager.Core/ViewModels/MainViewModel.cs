@@ -6,7 +6,7 @@ namespace FMX.AccountsManager.Core
     /// <summary>
     /// View model for main application view
     /// </summary>
-    public class MainViewModel : ViewModelBase, IRequestClose, IDisposable
+    public class MainViewModel : ViewModelBase, IRequestClose, IRequestFocus, IDisposable
     {
         #region Privates
 
@@ -68,6 +68,11 @@ namespace FMX.AccountsManager.Core
         /// Removes all data from device
         /// </summary>
         public ICommand DeleteAllDataCommand { get; set; }
+
+        /// <summary>
+        /// Focuses user on search input
+        /// </summary>
+        public ICommand FocusSearchInput { get; set; }
 
         #endregion
 
@@ -181,6 +186,7 @@ namespace FMX.AccountsManager.Core
             });
 
             CloseCommand = new RelayCommand(() => CloseRequested(this, new RequestCloseEventArgs(true)));
+            FocusSearchInput = new RelayCommand(() => FocusRequested(this, new RequestFocusEventArgs(RequestFocusEventArgs.FOCUSED_SEARCH_TEXT)));
         }
 
         private void NewRecord_Removed(object? sender, RemovedEventArgs e)
@@ -264,6 +270,15 @@ namespace FMX.AccountsManager.Core
         /// Fires when some view requests for close it
         /// </summary>
         public event EventHandler<RequestCloseEventArgs> CloseRequested = (_, _) => { };
+
+        #endregion
+
+        #region IRequestFocus Members
+
+        /// <summary>
+        /// Fires when some view requests for focus it
+        /// </summary>
+        public event EventHandler<RequestFocusEventArgs> FocusRequested = (_, _) => { };
 
         #endregion
     }

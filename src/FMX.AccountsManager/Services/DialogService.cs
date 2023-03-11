@@ -1,5 +1,4 @@
-﻿using FMX.AccountsManager.Core;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 
@@ -49,7 +48,9 @@ namespace FMX.AccountsManager
             {
                 Title = "Save accounts backup",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                DefaultExt = serializator is IXMLSerializator ? XMLSerializator.EXTENTION : BinarySerializator.EXTENTION
+                DefaultExt = serializator is IXMLSerializator ? XMLSerializator.EXTENTION : BinarySerializator.EXTENTION,
+                Filter = serializator is IXMLSerializator ? $"XML Accounts File (*{XMLSerializator.EXTENTION})|*{XMLSerializator.EXTENTION}| All files (*.*)|*.*" 
+                                                          : $"Accounts File (*{BinarySerializator.EXTENTION})|*{BinarySerializator.EXTENTION}| All files (*.*)|*.*"
             };
 
             return dialog.ShowDialog() ?? false ? dialog.FileName : null;
